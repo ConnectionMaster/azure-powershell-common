@@ -12,6 +12,8 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using System;
+
 namespace Microsoft.Azure.Commands.Common
 {
     /// <summary>
@@ -44,6 +46,7 @@ namespace Microsoft.Azure.Commands.Common
     /// <summary>
     /// Represent Error Kind
     /// </summary>
+    [Serializable]
     public class ErrorKind
     {
         public string Value { get; private set; }
@@ -74,5 +77,12 @@ namespace Microsoft.Azure.Commands.Common
         /// Error that belongs to neither UserError nor ServiceError
         /// </summary>
         public static ErrorKind InternalError = new ErrorKind("Internal");
+
+        /// <summary>
+        /// Error reported by cmdlet execution but it is considered as false positive error. 
+        /// This error kind is used in the case that we don't want to introduce breaking change 
+        /// but result should be considered as succeeded.
+        /// </summary>
+        public static ErrorKind FalseError = new ErrorKind("FalseError");
     }
 }
